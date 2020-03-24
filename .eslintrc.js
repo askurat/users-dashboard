@@ -93,7 +93,7 @@ module.exports = {
 
     // ESLint plugin for prettier formatting
     // https://github.com/prettier/eslint-plugin-prettier
-    // 'prettier/prettier': 'error',
+    'prettier/prettier': 'error',
 
     // Disable required default props
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-default-props.md
