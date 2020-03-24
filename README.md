@@ -1,4 +1,4 @@
-# Typescript Example
+# Users Dashboard
 
 ## Installation
 
