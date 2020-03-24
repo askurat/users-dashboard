@@ -1,12 +1,8 @@
 import React from 'react';
-// import { or, explicitNull } from 'airbnb-prop-types';
-// import useStyles from 'isomorphic-style-loader/useStyles';
 import { Card, Row, Col, Statistic, Skeleton, Avatar } from 'antd';
 import { SafetyCertificateTwoTone } from '@ant-design/icons';
-// import { Aggregate } from '@gen/apollo-typings';
 import './Stats.css';
 import { GetUsers_users } from '@/__generated__/types';
-// import { formatNumber } from './utils';
 
 const { Meta } = Card;
 
@@ -15,29 +11,6 @@ type ColumnProps = {
   iconColor: string;
   className: string;
 };
-
-// const Info: FC<InfoProps> = ({ children, title, bordered, loading }) => (
-//   <div className="statsHeaderInfo">
-//     <Skeleton
-//       loading={loading}
-//       title={{ width: '250px' }}
-//       paragraph={false}
-//       active
-//     >
-//       <span>{title}</span>
-//     </Skeleton>
-//     <Skeleton
-//       className="statsHeaderInfo-stats"
-//       loading={loading}
-//       title={{ width: '50px' }}
-//       paragraph={false}
-//       active
-//     >
-//       {children}
-//     </Skeleton>
-//     {bordered && <em />}
-//   </div>
-// );
 
 type PropTypes = {
   loading: boolean;
