@@ -54,11 +54,13 @@
     "react-test-renderer": "16.13.1",
     "resolve-ts-aliases": "^1.0.1",
     "ts-import-plugin": "^1.6.5",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "webpack-bundle-analyzer": "^3.6.1"
   },
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "build-stats": "react-app-rewired build --analyse",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject",
     "schema": "apollo client:download-schema --endpoint=https://fakeql.com/graphql/78ca6bf8e79dc3c3f80a68c609cdbb0e ./src/schema.json",

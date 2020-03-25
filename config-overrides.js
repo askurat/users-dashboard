@@ -4,6 +4,7 @@ const {
   fixBabelImports,
   addLessLoader,
   addWebpackAlias,
+  addBundleVisualizer,
   // addWebpackPlugin
 } = require('customize-cra'); // eslint-disable-line import/no-extraneous-dependencies
 const { resolveTsAliases } = require('resolve-ts-aliases');
@@ -27,6 +28,8 @@ module.exports = override(
       '@primary-color': '#1DA57A',
     },
   }),
+  // add webpack bundle visualizer with --analyze flag
+  addBundleVisualizer({}, true),
   // add an alias for "ag-grid-react" imports
   addWebpackAlias({
     ...resolveTsAliases(path.resolve(__dirname, 'tsconfig.paths.json')),
