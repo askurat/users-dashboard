@@ -1,5 +1,7 @@
 # Users Dashboard
 
+Check out the demo: [users-dashboard](https://users-dashboard.skur.at/)
+
 ## Installation
 
 ```bash
