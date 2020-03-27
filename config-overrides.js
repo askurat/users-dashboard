@@ -29,7 +29,7 @@ module.exports = override(
   }),
   // add webpack bundle visualizer with --analyze flag
   addBundleVisualizer({}, true),
-  // add an alias for "ag-grid-react" imports
+  // add an alias
   addWebpackAlias({
     ...resolveTsAliases(path.resolve(__dirname, 'tsconfig.paths.json')),
   }),
