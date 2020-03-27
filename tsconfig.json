@@ -25,7 +25,8 @@
   },
   "include": [
     "src",
-    "config-overrides.js"
+    "config-overrides.js",
+    "scripts/generateColorLess.js"
   ],
   "extends": "./tsconfig.paths.json"
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Row, Col, Statistic, Skeleton, Avatar } from 'antd';
 import { SafetyCertificateTwoTone } from '@ant-design/icons';
-import './Stats.css';
 import { GetUsers_users } from '@/__generated__/types';
 
 const { Meta } = Card;

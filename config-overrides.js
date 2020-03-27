@@ -1,16 +1,19 @@
 /* Overriding CreateReactApp settings, ref: https://github.com/arackaf/customize-cra */
+const fs = require('fs');
+const path = require('path');
 const {
   override,
   fixBabelImports,
   addLessLoader,
   addWebpackAlias,
   addBundleVisualizer,
-  // addWebpackPlugin
-} = require('customize-cra'); // eslint-disable-line import/no-extraneous-dependencies
+} = require('customize-cra');
 const { resolveTsAliases } = require('resolve-ts-aliases');
-const path = require('path');
-// const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
-const darkThemeVars = require('antd/dist/dark-theme');
+const lessToJS = require('less-vars-to-js');
+
+const antThemeVars = lessToJS(
+  fs.readFileSync(path.join(__dirname, './src/variables.less'), 'utf8'),
+);
 
 module.exports = override(
   fixBabelImports('import', {
@@ -21,11 +24,7 @@ module.exports = override(
   addLessLoader({
     javascriptEnabled: true,
     modifyVars: {
-      hack: `true;@import "${require.resolve(
-        'antd/lib/style/color/colorPalette.less',
-      )}";`,
-      ...darkThemeVars,
-      '@primary-color': '#1DA57A',
+      ...antThemeVars,
     },
   }),
   // add webpack bundle visualizer with --analyze flag
@@ -34,5 +33,4 @@ module.exports = override(
   addWebpackAlias({
     ...resolveTsAliases(path.resolve(__dirname, 'tsconfig.paths.json')),
   }),
-  // addWebpackPlugin(new AntdDayjsWebpackPlugin())
 );

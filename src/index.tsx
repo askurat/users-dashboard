@@ -10,7 +10,8 @@ import {
 import sumBy from 'lodash.sumby';
 import isEqual from 'lodash.isequal';
 import memoizeOne from 'memoize-one';
-import { App } from '@/App';
+import { App } from '@/components/App';
+import './index.less';
 
 const typeDefs = gql`
   extend type User {

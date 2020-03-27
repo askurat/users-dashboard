@@ -1,14 +1,14 @@
 import React, { ReactNode, FC } from 'react';
-import { PageHeader } from 'antd';
+import { PageHeader as AntdPageHeader } from 'antd';
 
-type PropTypes = {
+type PageHeaderTypes = {
   subTitle?: ReactNode;
   extra?: ReactNode;
 };
 
-const Header: FC<PropTypes> = ({ children, subTitle, extra }) => {
+const PageHeader: FC<PageHeaderTypes> = ({ children, subTitle, extra }) => {
   return (
-    <PageHeader
+    <AntdPageHeader
       title="Top Users"
       subTitle={subTitle}
       className="site-page-header"
@@ -16,8 +16,8 @@ const Header: FC<PropTypes> = ({ children, subTitle, extra }) => {
       style={{ paddingLeft: 0, paddingRight: 0 }}
     >
       {children}
-    </PageHeader>
+    </AntdPageHeader>
   );
 };
 
-export default Header;
+export default PageHeader;

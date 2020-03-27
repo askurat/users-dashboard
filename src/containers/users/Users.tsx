@@ -1,5 +1,6 @@
-import React, { useState, useEffect, FC } from 'react';
-import { Layout, Table, Result, Button } from 'antd';
+import React, { useState, useEffect, useContext, FC } from 'react';
+import { Table, Result, Button, Switch, Tooltip } from 'antd';
+import { createFromIconfontCN } from '@ant-design/icons';
 import { useQuery } from '@apollo/client';
 import dayjs, { Dayjs } from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -9,17 +10,23 @@ import {
   GetUsers_users,
   GetUsers_users_orders,
 } from '@/__generated__/types';
-import DatePicker from '@/components/DatePicker/DatePicker';
-import Header from '@/components/Header/Header';
+import { ThemeContext } from '@/components/App';
+import Layout from '@/components/Layout/Layout';
+import PageHeader from '@/components/PageHeader/PageHeader';
 import Stats from '@/components/Stats/Stats';
+import DatePicker from '@/components/DatePicker/DatePicker';
 import { formatPrice, formatNumber, sortText, sortNumber } from '@/utils/utils';
+// import darkThemeVars from 'antd/dist/dark-theme';
 import { GetUsers as QUERY } from './queries';
+// import './Users.css';
 // import { MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
 
 dayjs.extend(customParseFormat);
 
-const { Content, Footer } = Layout;
 const { RangePicker } = DatePicker;
+const ThemeChangerIcons = createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/font_1713133_narhhn3kifm.js',
+});
 
 type UserProps = {};
 export const Users: FC<UserProps> = () => {
@@ -27,6 +34,7 @@ export const Users: FC<UserProps> = () => {
   const [startDate, setStartDate] = useState('2019-01');
   const [endDate, setEndDate] = useState('2019-03');
   const [topUsers, setTopUsers] = useState<GetUsers_users[]>([]);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const { loading, data: queryData, error } = useQuery<GetUsers>(QUERY, {
     // Let's add a month to the end date, when sending back to graphql.
@@ -41,22 +49,11 @@ export const Users: FC<UserProps> = () => {
   useEffect(() => {
     if (!loading && queryData?.users && queryData.users.length > 0) {
       const { users } = queryData;
-
-      // const processData = users.reduce((userAcc: any, user: any) => {
-      //   const ordersWithTotal = user.orders.reduce(
-      //     (orderAcc: any, order: any) => {
-      //       const total = memoizeTotal(order.products, 'price');
-      //       return [...orderAcc, { ...order, total }];
-      //     },
-      //     []
-      //   );
-
-      //   return [...userAcc, { ...user, orders: ordersWithTotal }];
-      // }, []);
       const filteredUsers = users
         .slice()
         .sort((a, b) => b.points - a.points)
         .slice(0, 3);
+
       setTopUsers(filteredUsers);
       setData(users);
     }
@@ -146,13 +143,31 @@ export const Users: FC<UserProps> = () => {
   };
 
   const renExtra = () => (
-    <RangePicker
-      picker="month"
-      defaultValue={[dayjs(startDate, 'YYYY-MM'), dayjs(endDate, 'YYYY-MM')]}
-      allowEmpty={[false, false]}
-      allowClear={false}
-      onChange={onDateChange}
-    />
+    <>
+      <RangePicker
+        style={{ verticalAlign: 'middle' }}
+        picker="month"
+        defaultValue={[dayjs(startDate, 'YYYY-MM'), dayjs(endDate, 'YYYY-MM')]}
+        allowEmpty={[false, false]}
+        allowClear={false}
+        onChange={onDateChange}
+      />
+      <Tooltip placement="top" title={theme === 'dark' ? 'Light' : 'Dark'}>
+        <Switch
+          className="theme-switcher"
+          checkedChildren={<ThemeChangerIcons type="icon-sunset" />}
+          unCheckedChildren={<ThemeChangerIcons type="icon-moonset" />}
+          defaultChecked={theme === 'dark'}
+          onClick={toggleTheme}
+        />
+      </Tooltip>
+      {/* <Button
+        className="theme-button"
+        shape="circle"
+        icon={<ThemeChangerIcons type="icon-sun" />}
+        onClick={toggleTheme}
+      /> */}
+    </>
   );
 
   const renSubTitle = () => {
@@ -173,33 +188,28 @@ export const Users: FC<UserProps> = () => {
     );
 
   return (
-    <Layout style={{ height: '100vh' }}>
-      <Content style={{ margin: '44px 36px 0' }}>
-        <Header subTitle={renSubTitle()} extra={renExtra()}>
-          <Stats loading={loading} users={topUsers} />
-        </Header>
-        <Table
-          rowKey={(user: GetUsers_users) => user.id}
-          loading={loading}
-          dataSource={data}
-          columns={columns}
-          pagination={{ size: 'small', showSizeChanger: true }}
-          expandable={{
-            expandedRowRender,
-            rowExpandable,
-            expandRowByClick: true,
-            // expandIcon: ({ expanded, onExpand, record }) =>
-            //   expanded ? (
-            //     <MinusSquareOutlined onClick={e => onExpand(record, e)} />
-            //   ) : (
-            //     <PlusSquareOutlined onClick={e => onExpand(record, e)} />
-            //   )
-          }}
-        />
-      </Content>
-      <Footer style={{ textAlign: 'center' }}>
-        Spectrum ©2020 Created by taruks
-      </Footer>
+    <Layout>
+      <PageHeader subTitle={renSubTitle()} extra={renExtra()}>
+        <Stats loading={loading} users={topUsers} />
+      </PageHeader>
+      <Table
+        rowKey={(user: GetUsers_users) => user.id}
+        loading={loading}
+        dataSource={data}
+        columns={columns}
+        pagination={{ size: 'small', showSizeChanger: true }}
+        expandable={{
+          expandedRowRender,
+          rowExpandable,
+          expandRowByClick: true,
+          // expandIcon: ({ expanded, onExpand, record }) =>
+          //   expanded ? (
+          //     <MinusSquareOutlined onClick={e => onExpand(record, e)} />
+          //   ) : (
+          //     <PlusSquareOutlined onClick={e => onExpand(record, e)} />
+          //   )
+        }}
+      />
     </Layout>
   );
 };
