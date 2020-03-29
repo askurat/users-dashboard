@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { presetPalettes, presetDarkPalettes } from '@ant-design/colors';
 import { setTwoToneColor } from '@ant-design/icons';
+import { useMediaPredicate } from 'react-media-hook';
 import themeSwitcher from 'theme-switcher';
 import Users from '@/containers/users/Users';
 
@@ -28,11 +29,15 @@ const themeConfig = {
 const { switcher } = themeSwitcher(themeConfig);
 
 export const App = () => {
+  const preferredTheme = useMediaPredicate('(prefers-color-scheme: dark)')
+    ? 'dark'
+    : 'default';
   const [theme, setTheme] = useState<ThemeContext['theme']>(
     typeof localStorage !== 'undefined'
       ? (localStorage.getItem(SITE_THEME_STORE_KEY) as ThemeContext['theme']) ||
+          preferredTheme ||
           'default'
-      : 'default',
+      : preferredTheme || 'default',
   );
 
   useEffect(() => {

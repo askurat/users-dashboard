@@ -11,3 +11,4 @@ interface Window {
 
 // Declare modules for non-typed packages
 declare module 'antd/dist/dark-theme';
+declare module 'react-media-hook';

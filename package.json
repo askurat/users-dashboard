@@ -19,6 +19,7 @@
     "memoize-one": "^5.1.1",
     "react": "latest",
     "react-dom": "latest",
+    "react-media-hook": "^0.4.6",
     "react-scripts": "^3.4.1"
   },
   "devDependencies": {
