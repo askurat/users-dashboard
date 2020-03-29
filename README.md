@@ -2,6 +2,8 @@
 
 Check out the demo: [users-dashboard](https://users-dashboard.skur.at/)
 
+p.s. The theme is picked based on system preferences but can be changed.
+
 ## Installation
 
 ```bash
