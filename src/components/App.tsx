@@ -33,11 +33,9 @@ export const App = () => {
     ? 'dark'
     : 'default';
   const [theme, setTheme] = useState<ThemeContext['theme']>(
-    typeof localStorage !== 'undefined'
-      ? (localStorage.getItem(SITE_THEME_STORE_KEY) as ThemeContext['theme']) ||
-          preferredTheme ||
-          'default'
-      : preferredTheme || 'default',
+    (localStorage.getItem(SITE_THEME_STORE_KEY) as ThemeContext['theme']) ||
+      preferredTheme ||
+      'default',
   );
 
   useEffect(() => {
