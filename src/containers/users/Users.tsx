@@ -160,7 +160,11 @@ export const Users: FC<UserProps> = () => {
         // status="500"
         title="Query Error"
         subTitle="Oh no, it looks like something went wrong. Try reloading the page."
-        extra={<Button type="primary">Back Home</Button>}
+        extra={
+          <Button type="primary" onClick={() => window.location.reload(false)}>
+            Reload
+          </Button>
+        }
       />
     );
 
