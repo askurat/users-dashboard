@@ -70,7 +70,7 @@
     "build-stats": "react-app-rewired build --analyze",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject",
-    "schema": "apollo client:download-schema --endpoint=https://fakeql.com/graphql/78ca6bf8e79dc3c3f80a68c609cdbb0e ./src/schema.json",
+    "schema": "apollo client:download-schema --endpoint=https://fakeql.com/graphql/34192b3afe5bf4438095230f20abed8c ./src/schema.json",
     "types": "apollo client:codegen ./src/__generated__/types.ts --outputFlat --includes=./src/**/queries.ts --addTypename --localSchemaFile=./src/schema.json --target=typescript"
   },
   "browserslist": {

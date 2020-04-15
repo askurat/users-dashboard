@@ -56,7 +56,7 @@ const resolvers = {
 };
 
 const httpLink = new HttpLink({
-  uri: 'https://fakeql.com/graphql/78ca6bf8e79dc3c3f80a68c609cdbb0e',
+  uri: 'https://fakeql.com/graphql/34192b3afe5bf4438095230f20abed8c',
 });
 
 const cache = new InMemoryCache();
