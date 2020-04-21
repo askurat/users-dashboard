@@ -44,6 +44,7 @@ const calculatePoints = (total: number) => {
 
 const memoizePoints = memoizeOne(calculatePoints, isEqual);
 
+// Resolvers for local state
 const resolvers = {
   User: {
     points: ({ orders }: GetUsers_users) => {
