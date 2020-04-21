@@ -1,11 +1,11 @@
 export const formatPrice = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
-  minimumFractionDigits: 2
+  minimumFractionDigits: 2,
 });
 
 export const formatNumber = new Intl.NumberFormat('en-US', {
-  maximumFractionDigits: 0
+  maximumFractionDigits: 0,
 });
 
 export const sortNumber = (a: number, b: number) => a - b;
