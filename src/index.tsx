@@ -43,11 +43,12 @@ const memoizePoints = memoizeOne(calculatePoints, isEqual);
 const resolvers = {
   User: {
     points: ({ orders }: { orders: any }) => {
-      let total = 0;
+      let points = 0;
       orders.forEach((order: any) => {
-        total += memoizeTotal(order.products, 'price');
+        const total = memoizeTotal(order.products, 'price');
+        points += memoizePoints(total);
       });
-      return memoizePoints(total);
+      return points;
     },
   },
   Order: {
