@@ -12,6 +12,7 @@ import isEqual from 'lodash.isequal';
 import memoizeOne from 'memoize-one';
 import { App } from '@/components/App';
 import './index.less';
+import { GetUsers_users, GetUsers_users_orders } from './__generated__/types';
 
 const typeDefs = gql`
   extend type User {
@@ -23,7 +24,10 @@ const typeDefs = gql`
   }
 `;
 
-const calculateTotal = (arr: [], field: string) => sumBy(arr, field);
+const calculateTotal = <TData extends MetadataObjAny>(
+  arr: TData[],
+  field: string,
+) => sumBy(arr, field);
 const memoizeTotal = memoizeOne(calculateTotal, isEqual);
 
 const calculatePoints = (total: number) => {
@@ -42,8 +46,8 @@ const memoizePoints = memoizeOne(calculatePoints, isEqual);
 
 const resolvers = {
   User: {
-    points: ({ orders }: { orders: any }) => {
-      const totalPoints = orders.reduce((points: number, order: any) => {
+    points: ({ orders }: GetUsers_users) => {
+      const totalPoints = orders.reduce((points: number, order) => {
         const { products } = order;
         const orderTotal = memoizeTotal(products, 'price');
         return points + memoizePoints(orderTotal);
@@ -52,7 +56,8 @@ const resolvers = {
     },
   },
   Order: {
-    total: ({ products }: { products: any }) => memoizeTotal(products, 'price'),
+    total: ({ products }: GetUsers_users_orders) =>
+      memoizeTotal(products, 'price'),
   },
 };
 
